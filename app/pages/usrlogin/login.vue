@@ -70,12 +70,12 @@ async function onSubmit(_event: FormSubmitEvent<Schema>) {
 
 <template>
   <div class="flex flex-col items-center justify-center min-h-screen gap-4 p-4 bg-gray-50 dark:bg-gray-900">
-    <UCard class="w-full max-w-md">
+    <UCard class="w-full max-w-md h-115 flex-col justify-between">
       <template #header>
-        <div class="flex justify-center mb-3">
-          <UIcon name="i-lucide-lock" class="w-10 h-10 text-gray-700" />
+        <div class="flex justify-center mb-2">
+          <UIcon name="i-lucide-user" class="w-10 h-10 text-gray-700" />
         </div>
-        <p class="text-xl font-bold text-center">Login</p>
+        <h1 class="text-xl font-bold text-center">Login</h1>
         <p class="text-sm text-center font-small mt-2 text-gray-500">Enter your credentials to access your account.</p>
       </template>
 
@@ -109,17 +109,19 @@ async function onSubmit(_event: FormSubmitEvent<Schema>) {
           type="submit"
           block
           :loading="isLoading"
+          class="font-bold"
         >
-          Masuk
+          Submit
         </UButton>
 
-        <div class="flex items-center justify-center gap-2 mt-4 text-sm">
-          <span class="text-gray-500">Don't have an account?</span>
+        <div class="flex flex-col items-center justify-center mt-4 text-sm">
+          <span class="text-gray-500">Already have an account?</span>
           <UButton
             to="/usrregister/register"
             variant="link"
             color="primary"
             :padded="false"
+            class="font-bold"
           >
             Sign up
           </UButton>
