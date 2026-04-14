@@ -115,7 +115,7 @@ async function onSubmit(_event: FormSubmitEvent<Schema>) {
         </UButton>
 
         <div class="flex flex-col items-center justify-center mt-4 text-sm">
-          <span class="text-gray-500">Already have an account?</span>
+          <span class="text-gray-500">Don't have an account?</span>
           <UButton
             to="/usrregister/register"
             variant="link"
