@@ -13,7 +13,11 @@ const loginprocess = () => {
 
   <div>
     <div class="flex flex-col items-center justify-center min-h-screen p-4 bg-[#0f172a]"></div>
-    <h2>Welcome back!</h2>
+    <Ucard class="w-full max-w-md bg-[#1e293b] border-gray-800">
+      <template #header>
+        <h2 class="text-xl font-bold text-white text-center">Welcome back!</h2>
+      </template>
+    </Ucard>
     <p>Don't have an account? <a href="/usrregister/register">Sign up</a></p>
     
     <div>
