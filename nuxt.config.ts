@@ -36,11 +36,12 @@ export default defineNuxtConfig({
   },
 
   icon: {
+    provider: 'iconify',
     serverBundle: 'remote'
   },
-  vite: {
-    optimizeDeps: {
-      include: ['@vue/devtools-core', '@vue/devtools-kit', 'zod']
+  nitro: {
+    devProxy: {
+      host: 'localhost',
     }
   }
 })
