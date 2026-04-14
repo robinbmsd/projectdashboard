@@ -16,6 +16,7 @@ interface RegisterResponse {
 const formRef = ref()
 const router = useRouter()
 const toast = useToast()
+const isLoading = computed(() => status.value === 'pending')
 
 const state = reactive({
   email: '',
@@ -29,14 +30,13 @@ const schema = z.object({
 
 type Schema = z.output<typeof schema>
 
-const { data, status, error, execute } = await useFetch<RegisterResponse>('/api/register', {
+const { data, status, error, execute } = useFetch<RegisterResponse>('/api/register', {
   method: 'POST',
   body: state,
   immediate: false,
-  watch: false,   
+  watch: false,
+  server: false,   
 })
-
-const isLoading = computed(() => status.value === 'pending')
 
 async function onSubmit(_event: FormSubmitEvent<Schema>) {
   formRef.value.clear()
