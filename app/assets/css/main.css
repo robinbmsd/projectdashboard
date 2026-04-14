@@ -1,0 +1,18 @@
+@import "tailwindcss";
+@import "@nuxt/ui";
+
+@theme static {
+  --font-sans: 'Public Sans', sans-serif;
+
+  --color-brand-50:  #f0f8ff;
+  --color-brand-100: #dff0ff;
+  --color-brand-200: #b8e3ff;
+  --color-brand-300: #7acdff;
+  --color-brand-400: #33b4fd;
+  --color-brand-500: #089bef;
+  --color-brand-600: #007bcc;
+  --color-brand-700: #0061a5;
+  --color-brand-800: #045388;
+  --color-brand-900: #094571;
+  --color-brand-950: #062b4b;
+}

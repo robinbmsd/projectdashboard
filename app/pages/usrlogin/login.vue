@@ -1,33 +1,126 @@
 <script setup lang="ts">
-import {ref} from 'vue'
+import * as z from 'zod'
+import type { FormSubmitEvent } from '#ui/types'
 
-const usremail = ref('')
-const usrpass = ref('')
+definePageMeta({
+  layout: false
+})
 
-const loginprocess = () => {
-  console.log('Mencoba login dengan:', usremail.value, usrpass.value)
+interface LoginResponse {
+  success: boolean
+  message: string
+  field?: string
+}
+
+const formRef = ref()
+const router = useRouter()
+const toast = useToast()
+
+const state = reactive({
+  email: '',
+  password: '',
+  remember: false
+})
+
+const schema = z.object({
+  email: z.string().email('Format email salah'),
+  password: z.string().min(8, 'Must be at least 8 characters')
+})
+
+type Schema = z.output<typeof schema>
+
+const { data, status, error, execute } = useFetch<LoginResponse>('/api/login/login', {
+  method: 'POST' as any,
+  body: state,
+  immediate: false, 
+  watch: false,     
+})
+
+const isLoading = computed(() => status.value === 'pending')
+
+async function onSubmit(_event: FormSubmitEvent<Schema>) {
+  if (formRef.value) formRef.value.clear()
+
+  await execute()
+
+  if (data.value && data.value.success) {
+    toast.add({ title: 'Success', color: 'success' })
+    router.push('/home/dashboard')
+    return
   }
+
+  if (error.value) {
+    const errorData = error.value.data as LoginResponse
+    
+    if (errorData && errorData.field) {
+      formRef.value.setErrors([{
+        path: errorData.field,
+        message: errorData.message
+      }])
+    } else {
+      toast.add({
+        title: 'Gagal',
+        description: errorData?.message || 'Terjadi kesalahan sistem',
+        color: 'error'
+      })
+    }
+  }
+}
 </script>
 
 <template>
-
-  <div>
-    <div class="flex flex-col items-center justify-center min-h-screen p-4 bg-[#0f172a]"></div>
-    <Ucard class="w-full max-w-md bg-[#1e293b] border-gray-800">
+  <div class="flex flex-col items-center justify-center min-h-screen gap-4 p-4 bg-gray-50 dark:bg-gray-900">
+    <UCard class="w-full max-w-md">
       <template #header>
-        <h2 class="text-xl font-bold text-white text-center">Welcome back!</h2>
+        <h1 class="text-xl font-bold">Login</h1>
       </template>
-    </Ucard>
-    <p>Don't have an account? <a href="/usrregister/register">Sign up</a></p>
-    
-    <div>
-      <label>Email</label>
-      <input type="email" placeholder="Enter your E-Mail"/>
-      
-      <label>Password</label>
-      <input type="password" placeholder="Enter you password"/>
-      
-      <button>Continue</button>
-    </div>
+
+      <UForm
+        ref="formRef"
+        :schema="schema"
+        :state="state"
+        class="space-y-4"
+        @submit="onSubmit"
+      >
+        <UFormField label="Email" name="email">
+          <UInput
+            v-model="state.email"
+            icon="i-heroicons-envelope"
+            placeholder="email@contoh.com"
+            class="w-full"
+          />
+        </UFormField>
+
+        <UFormField label="Password" name="password">
+          <UInput
+            v-model="state.password"
+            type="password"
+            icon="i-heroicons-lock-closed"
+            placeholder="********"
+            class="w-full"
+          />
+        </UFormField>
+
+        <UButton
+          type="submit"
+          block
+          :loading="isLoading"
+        >
+          Masuk
+        </UButton>
+
+        <div class="flex items-center justify-center gap-2 mt-4 text-sm">
+          <span class="text-gray-500">Belum punya akun?</span>
+          <UButton
+            to="/usrregister/register"
+            variant="link"
+            color="primary"
+            :padded="false"
+          >
+            Daftar
+          </UButton>
+        </div>
+      </UForm>
+    </UCard>
   </div>
 </template>
