@@ -5,13 +5,14 @@ const usremail = ref('')
 const usrpass = ref('')
 
 const loginprocess = () => {
-  console.log('E-Mail yang diketik:', usremail.value)
-  console.log('Password yang diketik:', usrpass.value)
+  console.log('Mencoba login dengan:', usremail.value, usrpass.value)
   }
 </script>
 
 <template>
+
   <div>
+    <div class="flex flex-col items-center justify-center min-h-screen p-4 bg-[#0f172a]"></div>
     <h2>Welcome back!</h2>
     <p>Don't have an account? <a href="/usrregister/register">Sign up</a></p>
     
