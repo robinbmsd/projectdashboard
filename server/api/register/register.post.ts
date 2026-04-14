@@ -1,51 +1,67 @@
 import pool from '~~/server/api/utils/connection'
-import { readBody, setResponseStatus, createError } from 'h3'
+import { readRawBody, setCookie } from 'h3' // HAPUS setResponseStatus dari sini!
 import bcrypt from 'bcryptjs'
+import jwt from 'jsonwebtoken'
+
+interface RegisterBody {
+  email?: string
+  password?: string
+}
 
 export default defineEventHandler(async (event) => {
   try {
-    const body = await readBody(event)
+    // 1. Baca data mentah (lebih stabil di Nuxt 4)
+    const rawBody = await readRawBody(event)
+    const body: RegisterBody = rawBody ? JSON.parse(rawBody) : {}
+    
     const { email, password } = body
 
+    // 2. Validasi Input
     if (!email || !password) {
+      // Panggil langsung, JANGAN di-import di atas. Garis merah & coretan pasti hilang!
       setResponseStatus(event, 400)
-      return { 
-        success: false,
-        message: 'Email dan password wajib diisi' 
-      }
+      return { success: false, message: 'Email dan password wajib diisi' }
     }
 
-    const checkQuery = 'SELECT * FROM users WHERE email = ?'
-    const [existingUsers]: any = await pool.execute(checkQuery, [email])
-    
+    // 3. Cek Database
+    const [existingUsers]: any = await pool.execute(
+      'SELECT id FROM users WHERE email = ?',
+      [email]
+    )
+
     if (existingUsers.length > 0) {
       setResponseStatus(event, 400)
-      return {
-        field: 'email',
-        message: 'Email ini sudah terdaftar, silakan login.'
+      return { 
+        success: false, 
+        field: 'email', 
+        message: 'Email ini sudah terdaftar.' 
       }
     }
 
-    const saltRounds = 10
-    const hashedPassword = await bcrypt.hash(password, saltRounds)
-    
-    const insertQuery = 'INSERT INTO users (email, password, delete_flag) VALUES (?, ?, ?)'
-    await pool.execute(insertQuery, [email, hashedPassword, 0])
-    
-    return {
-      success: true,
-      message: 'Pendaftaran berhasil',
-      user: email
-    }
+    // 4. Proses Simpan
+    const hashedPassword = await bcrypt.hash(password, 10)
+    await pool.execute(
+      'INSERT INTO users (email, password, delete_flag) VALUES (?, ?, ?)',
+      [email, hashedPassword, 0]
+    )
+
+    // 5. JWT & Cookies
+    const secret = process.env.JWT_SECRET || 'KODE_RAHASIA_DUMMY_123'
+    const token = jwt.sign({ email }, secret, { expiresIn: '1d' })
+
+    setCookie(event, 'auth_token', token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      maxAge: 60 * 60 * 24,
+      path: '/',
+    })
+
+    return { success: true, message: 'Pendaftaran berhasil' }
 
   } catch (err: any) {
-    console.error('MYSQL/SERVER ERROR:', err)
-    
-    // Gunakan setResponseStatus untuk error 500 agar format JSON tetap rapi
+    console.error('API ERROR:', err)
     setResponseStatus(event, 500)
-    return {
-      success: false,
-      message: err.message || 'Terjadi kesalahan pada server'
-    }
+    return { success: false, message: 'Terjadi kesalahan sistem' }
   }
 })
