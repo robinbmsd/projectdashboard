@@ -72,7 +72,11 @@ async function onSubmit(_event: FormSubmitEvent<Schema>) {
   <div class="flex flex-col items-center justify-center min-h-screen gap-4 p-4 bg-gray-50 dark:bg-gray-900">
     <UCard class="w-full max-w-md">
       <template #header>
-        <h1 class="text-xl font-bold">Login</h1>
+        <div class="flex justify-center mb-3">
+          <UIcon name="i-lucide-lock" class="w-10 h-10 text-gray-700" />
+        </div>
+        <p class="text-xl font-bold text-center">Login</p>
+        <p class="text-sm text-center font-small mt-2 text-gray-500">Enter your credentials to access your account.</p>
       </template>
 
       <UForm
@@ -86,7 +90,7 @@ async function onSubmit(_event: FormSubmitEvent<Schema>) {
           <UInput
             v-model="state.email"
             icon="i-heroicons-envelope"
-            placeholder="email@contoh.com"
+            placeholder="Email"
             class="w-full"
           />
         </UFormField>
@@ -96,7 +100,7 @@ async function onSubmit(_event: FormSubmitEvent<Schema>) {
             v-model="state.password"
             type="password"
             icon="i-heroicons-lock-closed"
-            placeholder="********"
+            placeholder="Password"
             class="w-full"
           />
         </UFormField>
@@ -110,14 +114,14 @@ async function onSubmit(_event: FormSubmitEvent<Schema>) {
         </UButton>
 
         <div class="flex items-center justify-center gap-2 mt-4 text-sm">
-          <span class="text-gray-500">Belum punya akun?</span>
+          <span class="text-gray-500">Don't have an account?</span>
           <UButton
             to="/usrregister/register"
             variant="link"
             color="primary"
             :padded="false"
           >
-            Daftar
+            Sign up
           </UButton>
         </div>
       </UForm>
