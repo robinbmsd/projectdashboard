@@ -30,7 +30,7 @@ const schema = z.object({
 
 type Schema = z.output<typeof schema>
 
-const { data, status, error, execute } = useFetch<RegisterResponse>('/api/register', {
+const { data, status, error, execute } = useFetch<RegisterResponse>('/api/register/register', {
   method: 'POST',
   body: state,
   immediate: false,

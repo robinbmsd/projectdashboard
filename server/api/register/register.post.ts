@@ -14,6 +14,16 @@ const jsonResponse = (data: object, status: number) =>
         headers: { 'Content-Type': 'application/json' },
     })
 
+const readNodeBody = (event: any): Promise<RegisterBody> =>
+    new Promise((resolve) => {
+        let raw = ''
+        event.node.req.on('data', (chunk: any) => raw += chunk)
+        event.node.req.on('end', () => {
+        try { resolve(JSON.parse(raw)) }
+        catch { resolve({}) }
+        })
+    })
+
 export default defineEventHandler(async (event) => {
     const body = await readBody<RegisterBody>(event) || {}
     const { email, password } = body
