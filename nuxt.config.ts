@@ -36,7 +36,7 @@ export default defineNuxtConfig({
   },
 
   icon: {
-    serverBundle: false  // disable server-side icon bundling
+    serverBundle: 'remote'
   },
   vite: {
     optimizeDeps: {

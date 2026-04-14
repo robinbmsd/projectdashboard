@@ -35,7 +35,6 @@ const { data, status, error, execute } = useFetch<RegisterResponse>('/api/regist
   body: state,
   immediate: false,
   watch: false,
-  server: false,   
 })
 
 async function onSubmit(_event: FormSubmitEvent<Schema>) {
