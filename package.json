@@ -13,6 +13,7 @@
     "@nuxt/eslint": "^1.15.2",
     "@nuxt/ui": "^4.6.1",
     "bcryptjs": "^3.0.3",
+    "dotenv": "^17.4.2",
     "h3": "^2.0.1-rc.20",
     "jsonwebtoken": "^9.0.3",
     "mysql2": "^3.22.0",
