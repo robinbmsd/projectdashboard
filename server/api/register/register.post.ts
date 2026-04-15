@@ -1,7 +1,6 @@
 import pool from '~~/server/api/utils/connection'
-import { setCookie, setResponseStatus } from 'h3'
+import { setResponseStatus } from 'h3'
 import bcrypt from 'bcryptjs'
-import jwt from 'jsonwebtoken'
 
 interface RegisterBody {
   email?: string
@@ -50,17 +49,6 @@ export default defineEventHandler(async (event) => {
       'INSERT INTO useraccount (email, password, delete_flag) VALUES (?, ?, ?)',
       [email, hashedPassword, 0]
     )
-
-    const secret = process.env.JWT_SECRET || 'KODE_RAHASIA_DUMMY_123'
-    const token = jwt.sign({ email }, secret, { expiresIn: '1d' })
-
-    setCookie(event, 'auth_token', token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'lax',
-      maxAge: 60 * 60 * 24,
-      path: '/',
-    })
 
     return { 
       success: true, 

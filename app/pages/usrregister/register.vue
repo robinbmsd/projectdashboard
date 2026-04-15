@@ -39,7 +39,6 @@ const { data, status, error, execute } = useFetch<RegisterResponse>('/api/regist
 
 async function onSubmit(_event: FormSubmitEvent<Schema>) {
   formRef.value.clear()
-
   await execute()
 
   if (data.value?.success) {
@@ -48,20 +47,25 @@ async function onSubmit(_event: FormSubmitEvent<Schema>) {
       description: 'Account successfully created! Please login.',
       color: 'success'
     })
-    router.push('/usrlogin/login')
-    return 
+    await new Promise(resolve => setTimeout(resolve, 1500))
+    router.push('/usrlogin/login?registered=true')
+    return
   }
 
   if (error.value) {
     const errorData = error.value.data as RegisterResponse
 
-    console.log('ERROR FROM SERVER:', errorData)
-
-    if (errorData && errorData.field) {
+    if (errorData?.field) {
       formRef.value.setErrors([{
         path: errorData.field,
         message: errorData.message
       }])
+
+      toast.add({
+        title: 'Unsuccessful',
+        description: errorData.message,
+        color: 'error'
+      })
     } else {
       toast.add({
         title: 'Unsuccessful',
@@ -69,6 +73,14 @@ async function onSubmit(_event: FormSubmitEvent<Schema>) {
         color: 'error'
       })
     }
+  }
+
+  if (!data.value?.success && !error.value) {
+    toast.add({
+      title: 'Unsuccessful',
+      description: data.value?.message || 'Registration failed',
+      color: 'error'
+    })
   }
 }
 </script>
