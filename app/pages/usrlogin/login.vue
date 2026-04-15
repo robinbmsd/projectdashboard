@@ -10,11 +10,15 @@ interface LoginResponse {
   success: boolean
   message: string
   field?: string
+  needsOTP?: boolean
+  isNewOTP?: boolean
 }
 
 const formRef = ref()
 const router = useRouter()
 const toast = useToast()
+
+const tempEmail = useCookie('temp_email') 
 
 const state = reactive({
   email: '',
@@ -44,9 +48,18 @@ async function onSubmit(_event: FormSubmitEvent<Schema>) {
   await execute()
 
   if (data.value && data.value.success) {
-    toast.add({ title: 'Success', color: 'success' })
-    router.push('/home/dashboard')
-    return
+    tempEmail.value = state.email
+
+    if (data.value.needsOTP) {
+      if (data.value.isNewOTP) {
+        router.push('/setup/otp')
+      } else {
+        router.push('/setup/verify')
+      }
+    } else {
+      router.push('/home/dashboard')
+    }
+    return 
   }
 
   if (error.value) {
@@ -65,7 +78,7 @@ async function onSubmit(_event: FormSubmitEvent<Schema>) {
       })
     }
   }
-}
+} 
 </script>
 
 <template>

@@ -19,12 +19,15 @@
     "mysql2": "^3.22.0",
     "nuxt": "^4.4.2",
     "otplib": "^13.4.0",
+    "qrcode": "^1.5.4",
     "vue": "^3.5.32",
     "vue-router": "^5.0.4",
     "zod": "^4.3.6"
   },
   "devDependencies": {
     "@types/jsonwebtoken": "^9.0.10",
-    "@types/node": "^25.6.0"
+    "@types/node": "^25.6.0",
+    "@types/otplib": "^7.0.0",
+    "@types/qrcode": "^1.5.6"
   }
 }

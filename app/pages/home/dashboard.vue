@@ -1,11 +1,44 @@
-<script setup>
+<script setup lang="ts">
 definePageMeta({
     layout: false
 })
+
+const router = useRouter()
+const toast = useToast()
+
+// Ambil cookie yang dipakai untuk sesi login
+const authToken = useCookie('auth_token')
+const tempEmail = useCookie('temp_email')
+
+const handleLogout = () => {
+    // 1. Kosongkan semua data sesi
+    authToken.value = null
+    tempEmail.value = null
+    
+    // 2. Beri notifikasi kecil (opsional)
+    toast.add({
+        title: 'Logout Success',
+        description: 'See you again!',
+        color: 'success'
+    })
+
+    // 3. Arahkan kembali ke halaman login
+    router.push('/login')
+}
 </script>
 
 <template>
-    <div class="min-h-screen bg-white">
-        <h1>Soon</h1>
+    <div class="min-h-screen bg-gray-50 dark:bg-gray-900 flex flex-col items-center justify-center gap-6">
+        <h1 class="text-4xl font-bold text-gray-800 dark:text-white">Dashboard Page On Progress</h1>
+        
+        <UButton 
+            icon="i-heroicons-arrow-right-on-rectangle"
+            color="warning" 
+            variant="soft" 
+            size="lg"
+            @click="handleLogout"
+        >
+            Logout
+        </UButton>
     </div>
 </template>
