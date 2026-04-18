@@ -3,6 +3,7 @@ export default defineNuxtConfig({
   serverDir: 'server/',
 
   modules: [
+    '@nuxtjs/tailwindcss',
     '@nuxt/eslint',
     '@nuxt/ui'
   ],
@@ -52,6 +53,7 @@ export default defineNuxtConfig({
   },
 
   typescript: {
+    strict: true,
     tsConfig: {
       compilerOptions: {
         skipLibCheck: true,
