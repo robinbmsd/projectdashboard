@@ -37,5 +37,16 @@ const logout = () => {
   <div class="flex items-center justify-center mb-8 px-2">
     <img src="https://icons.veryicon.com/png/o/miscellaneous/broken-linear-icon/dashboard-81.png" alt="Logo Dashboard" class="h-12" />
   </div>
+
+  <UNavigationMenu :items="activeNavItems" orientation="vertical" class="w-full flex-1" />
+    <div class="pt-4 border-t border-gray-200 dark:border-black">
+      <UButton
+        @click="logout"
+        class="w-full justify-center text-red-500 hover:bg-red-50 dark:hover:bg-red-900/10"  
+        variant="ghost"
+        icon="i-lucide-log-out"
+        label="Logoout"
+        />
+    </div>
   </div>
 </template>
