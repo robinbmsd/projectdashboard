@@ -31,7 +31,6 @@ const isTransactionHistory = computed(() => route.path === '/transactions')
 const isSystemLogs = computed(() => route.path === '/logs')
 
 const currentDateTime = ref('')
-
 let timer: any
 
 onMounted(() => {
@@ -66,22 +65,28 @@ onUnmounted(() => {
   >
   <template #title>
     <div class="flex items-center gap-2">
-      <UButton>
+      <UButton
         icon="i-heroicons-bars-3"
         color="neutral"
         variant="ghost"
         class="lg:hidden"
-        @click=isSidebarOpen = !isSidebarOpen"
+        @click="isSidebarOpen = !isSidebarOpen"
         />
-        <span class="font-bold text-gray-900 dark:text-white text-lg">
+        <template v-for="(item, index) in breadcrumbs" :key="index">
+          <UIcon :name="item.icon" class="text-promary-500 w-5 h-5" />
+          <span class="font-bold text-gray-900 dark:text-white text-lg">
           Temporary Title Page
           <span class="text-sm font-normal text-gray-500 ml-2">
             {{ currentDateTime }}
           </span>
         </span>
-      </UButton>
+        <span v-if="index < breadcrumbs.length - 1" class="text-gray-400">
+          ›
+        </span>
+        </template>
     </div>
   </template>
+
   <template #right>
     <UColorModeSwitch />
   </template>
