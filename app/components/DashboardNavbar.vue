@@ -1,5 +1,4 @@
 <script lang="ts">
-import dayjs from 'dayjs'
 
 import { ref, onMounted, onUnmounted } from 'vue'
 
@@ -11,9 +10,20 @@ let timer: any
 
 onMounted(() => {
   const updateTime = () => {
-  
-    currenctDateTime.value = dayjs().format('dddd, DD MM YYYY HH:mm:ss')
+  const d = new Date()
+
+  currenctDateTime.value = d.toLocaleString('en-GB', {
+    weekday: 'short',
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: false
+  }).replace(',','')
   }
+  
   updateTime()
   timer = setInterval(updateTime,1000)
 }
