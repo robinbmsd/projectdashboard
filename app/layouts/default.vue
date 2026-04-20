@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import DashboardSidebar from '~/components/DashboardSidebar.vue'
 import DashboardNavbar from '~/components/DashboardNavbar.vue'
+
+const is SidebarOpen = useState('sidebarOpen', () => false)
+
 </script>
 
 <template>
