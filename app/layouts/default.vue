@@ -6,7 +6,9 @@
     </div>
 
     <div class="flex flex-col flex-1 min-w-0 overflow-hidden">
-      Ini Area Kanan
+      <div class="shrink-0 h-16 bg-gray-200 dark:bg-gray-800 text-center p-4">
+        Ini Navbar
+      </div>
     </div>
 
 </div>
