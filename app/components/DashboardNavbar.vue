@@ -23,11 +23,14 @@ onMounted(() => {
     hour12: false
   }).replace(',','')
   }
-  
+
   updateTime()
   timer = setInterval(updateTime,1000)
-}
-)
+})
+
+onUnmounted(() => {
+  if (timer) clearInterval(timer)
+}) 
 </script>
 <template>
   <UDashboardNavbar>
