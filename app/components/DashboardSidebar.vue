@@ -12,5 +12,6 @@
   </template>
 
 <script setup>
+const isSidebarOpen = useState('sidebarOpen', () => false)
 const logout = () => navigateTo('/login')
 </script>

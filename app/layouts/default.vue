@@ -2,7 +2,7 @@
 import DashboardSidebar from '~/components/DashboardSidebar.vue'
 import DashboardNavbar from '~/components/DashboardNavbar.vue'
 
-const is SidebarOpen = useState('sidebarOpen', () => false)
+const isSidebarOpen = useState('sidebarOpen', () => false)
 
 </script>
 
