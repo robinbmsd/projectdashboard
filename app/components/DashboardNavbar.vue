@@ -4,7 +4,21 @@ import { useRoute } from 'vue-router'
 import {  breadcrumbMap } from '~~/navigation/breadcrumb'
 import { navItems } from '~~/navigation/navItems'
 
+defineProps<{ title?: string }>()
+
+const route = useRoute()
+
 const isSidebarOpen = useState('sidebarOpen', () => false)
+
+const triggerCsv = useState('trigger-download-csv', () => 0)
+
+type BreadcrumbItem = {
+  label?: string
+  icon?: string
+  to?: string
+}
+
+
 
 const currentDateTime = ref('')
 

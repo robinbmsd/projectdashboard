@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
-import { navItems } from '~~/navigation/navitems'
+import { navItems } from '~~/navigation/navItems'
 
 const isSidebarOpen = useState('sidebarOpen', () => false)
 const route = useRoute()
