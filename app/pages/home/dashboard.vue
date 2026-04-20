@@ -26,9 +26,10 @@ const handleLogout = () => {
 </script>
 
 <template>
-    <div class="min-h-screen bg-gray-50 dark:bg-gray-900 flex flex-col items-center justify-center gap-6">
-        <h1 class="text-4xl font-bold text-gray-800 dark:text-white">Dashboard Page On Progress</h1>
-        
+    <div class="h-full w-full m-0 p-0 bg-gray-50 dark:bg-gray-900 flex flex-col items-center justify-center">
+        <h1 class="text-4xl font-bold text-gray-800 dark:text-white">
+            Dashboard Page On Progress
+        </h1>
         <div class="flex gap-4">
             <UButton 
                 icon="i-heroicons-arrow-right-on-rectangle"
