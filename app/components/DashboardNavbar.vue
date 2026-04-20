@@ -1,5 +1,31 @@
 <script lang="ts">
-  const isSidebarOpen = useState('sidebarOpen', () => false)
+import { ref, onMounted, onUnmounted } from 'vue'
+
+const isSidebarOpen = useState('sidebarOpen', () => false)
+
+const currenctDateTime = ref('')
+
+let timer: any
+
+onMounted(() => {
+  const updateTime = () => {
+    const d = new Date()
+    const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thrusday', 'Friday', 'Saturday']
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+  
+    const dayName = days[d.getDay()]
+    const date = d.getDate()
+    const monthName = months[d.getMonth()]
+    const year = d.getFullYear()
+    const hh = String(d.getHours()).padStart(2, '0')
+    const mm = String(d.getMinutes()).padStart(2, '0')
+    const ss = String(d.getSeconds()).padStart(2, '0')
+  
+    currenctDateTime.value = `${dayName}, ${date} ${monthName} ${year} ${hh}:${mm}:${ss}`
+  }
+  updateTime
+}
+)
 </script>
 <template>
   <UDashboardNavbar>
