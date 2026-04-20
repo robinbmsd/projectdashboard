@@ -88,6 +88,16 @@ onUnmounted(() => {
   </template>
 
   <template #right>
+    <div v-if="isTransactionHistory" class="mr-2">
+      <UButton
+        icon="i-lucide-download"
+        color="primary"
+        variant="ghost"
+        label="Download CSV"
+        @click="triggerCsv++"
+      />
+    </div>
+    
     <UColorModeSwitch />
   </template>
   </UDashboardNavbar>

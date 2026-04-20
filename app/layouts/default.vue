@@ -13,7 +13,7 @@ const isSidebarOpen = useState('sidebarOpen', () => false)
 
     <div class="flex flex-col flex-1 min-w-0 overflow-hidden">
       <div class="shrink-0 h-16 bg-gray-200 dark:bg-gray-800 text-center p-4">
-        Ini Navbar
+        <DashboardNavbar class="shrink-0" />
       </div>
 
       <main class="flex-1 min-h-0 relative overflow-y-auto p-4">
