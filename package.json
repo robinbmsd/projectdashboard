@@ -24,6 +24,7 @@
     "nuxt": "^4.4.2",
     "otplib": "^13.4.0",
     "qrcode": "^1.5.4",
+    "tailwindcss": "^4.2.2",
     "vue": "^3.5.32",
     "vue-router": "^5.0.4",
     "zod": "^4.3.6"
@@ -38,7 +39,6 @@
     "@types/node": "^25.6.0",
     "@types/otplib": "^7.0.0",
     "@types/qrcode": "^1.5.6",
-    "tailwindcss": "^3.4.19",
     "ts-node": "^10.9.2",
     "typescript": "^5.5.4"
   }

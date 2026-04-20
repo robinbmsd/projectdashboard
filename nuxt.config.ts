@@ -1,29 +1,23 @@
+import { fileURLToPath } from 'node:url' 
+
 export default defineNuxtConfig({
   ssr: false,
 
   experimental: {
     serverAppConfig: false,  
   },
-
   srcDir: 'app/',
   serverDir: 'server/',
+  
+    alias: {
+    '@': fileURLToPath(new URL('./app', import.meta.url)),
+    '~': fileURLToPath(new URL('./app', import.meta.url))
+  },
 
   modules: [
-    ['@nuxt/eslint', {
-      config: {
-        stylistic: {
-          commaDangle: 'never',
-          braceStyle: '1tbs'
-        }
-      }
-    }],
-    
-    ['@nuxt/ui', { fonts: false }],
-
-    ['@nuxt/icon', {
-      provider: 'iconify',
-      serverBundle: 'remote'
-    }]
+    '@nuxt/eslint',
+    '@nuxt/ui',              // tanpa { fonts: false } dulu
+    '@nuxt/icon'
   ],
   
   devtools: { enabled: true },
@@ -66,6 +60,7 @@ export default defineNuxtConfig({
     optimizeDeps: {
       exclude: ['mysql2'],
       include: [
+        'tailwindcss',
         '@vue/devtools-core',
         '@vue/devtools-kit',]
     }
