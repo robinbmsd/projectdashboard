@@ -18,7 +18,17 @@ type BreadcrumbItem = {
   to?: string
 }
 
+const breadcrumbs = computed<BreadcrumbItem[]>(() => {
+  const path = route.path
+  const match = breadcrumbMap.find(b => b.match.test(path))
+  if (match) return match.items as BreadcrumbItem[]
 
+  const nav = navItems.find(i => i.to === path)
+  return nav ? [{ label: nav.label, icon: nav.icon, to: undefined }] : []
+})
+
+const isTransactionHistory = computed(() => route.path === '/transactions')
+const isSystemLogs = computed(() => route.path === '/logs')
 
 const currentDateTime = ref('')
 
