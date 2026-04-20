@@ -37,7 +37,9 @@ const logout = () => {
     :class="isSidebarOpen ? 'translate-x-0 shadow-2xl lg:shadow-none' : '-translate-x-full'"
   >
   <div class="flex items-center justify-center mb-8 px-2">
-    <img src="https://icons.veryicon.com/png/o/miscellaneous/broken-linear-icon/dashboard-81.png" alt="Logo Dashboard" class="h-12" />
+    <img src="https://icons.veryicon.com/png/o/miscellaneous/broken-linear-icon/dashboard-81.png" 
+    alt="Logo Dashboard" 
+    class="h-12 dark:invert"/>
   </div>
 
   <UNavigationMenu :items="activeNavItems" orientation="vertical" class="w-full flex-1" />
