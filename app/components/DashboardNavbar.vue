@@ -1,10 +1,10 @@
-<script lang="ts">
+<script setup lang="ts">
 
 import { ref, onMounted, onUnmounted } from 'vue'
 
 const isSidebarOpen = useState('sidebarOpen', () => false)
 
-const currenctDateTime = ref('')
+const currentDateTime = ref('')
 
 let timer: any
 
@@ -12,7 +12,7 @@ onMounted(() => {
   const updateTime = () => {
   const d = new Date()
 
-  currenctDateTime.value = d.toLocaleString('en-GB', {
+  currentDateTime.value = d.toLocaleString('en-GB', {
     weekday: 'short',
     day: 'numeric',
     month: 'short',
@@ -47,8 +47,11 @@ onUnmounted(() => {
         class="lg:hidden"
         @click=isSidebarOpen = !isSidebarOpen"
         />
-        <span>
+        <span class="font-bold text-gray-900 dark:text-white text-lg">
           Temporary Title Page
+          <span class="text-sm font-normal text-gray-500 ml-2">
+            {{ currentDateTime }}
+          </span>
         </span>
       </UButton>
     </div>
