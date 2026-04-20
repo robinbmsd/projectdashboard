@@ -1,6 +1,8 @@
 <script setup lang="ts">
-
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { useRoute } from 'vue-router'
+import {  breadcrumbMap } from '~~/navigation/breadcrumb'
+import { navItems } from '~~/navigation/navItems'
 
 const isSidebarOpen = useState('sidebarOpen', () => false)
 
