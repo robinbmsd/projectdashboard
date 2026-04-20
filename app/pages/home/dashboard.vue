@@ -11,10 +11,6 @@ const toast = useToast()
 const authToken = useCookie('auth_token')
 const tempEmail = useCookie('temp_email')
 
-const goToHistory = () => {
-    router.push('/history/transactions')
-}
-
 const handleLogout = () => {
     authToken.value = null
     tempEmail.value = null
@@ -34,16 +30,6 @@ const handleLogout = () => {
         <h1 class="text-4xl font-bold text-gray-800 dark:text-white">Dashboard Page On Progress</h1>
         
         <div class="flex gap-4">
-            <UButton 
-                icon="i-heroicons-clock"
-                color="primary" 
-                variant="soft" 
-                size="lg"
-                @click="goToHistory"
-            >
-                History
-            </UButton>
-            <p></p>
             <UButton 
                 icon="i-heroicons-arrow-right-on-rectangle"
                 color="warning" 
