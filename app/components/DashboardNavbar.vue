@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { useRoute } from 'vue-router'
-import {  breadcrumbMap } from '~~/navigation/breadcrumb'
+import { breadcrumbMap } from '~~/navigation/breadcrumb'
 import { navItems } from '~~/navigation/navItems'
 
 defineProps<{ title?: string }>()
@@ -58,7 +58,7 @@ onUnmounted(() => {
 }) 
 </script>
 <template>
-  <UDashboardNavbar>
+  <UDashboardNavbar
     class="shrink-0 h-16 bg-white! dark:bg-[#121212]! border-b border-gray-200 dark:border-black"
     :breadcrumb="false"
     :toggle="false"
@@ -75,7 +75,7 @@ onUnmounted(() => {
         <template v-for="(item, index) in breadcrumbs" :key="index">
           <UIcon :name="item.icon" class="text-promary-500 w-5 h-5" />
           <span class="font-bold text-gray-900 dark:text-white text-lg">
-          Temporary Title Page
+          {{ item.label}}
           <span class="text-sm font-normal text-gray-500 ml-2">
             {{ currentDateTime }}
           </span>
@@ -97,7 +97,7 @@ onUnmounted(() => {
         @click="triggerCsv++"
       />
     </div>
-    
+
     <UColorModeSwitch />
   </template>
   </UDashboardNavbar>

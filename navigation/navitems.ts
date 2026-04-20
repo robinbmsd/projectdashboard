@@ -13,7 +13,7 @@ export const navItems: NavigationMenuItem[] = [
   },
   {
     label: 'System Log',
-    to: '/systemlogs/logs',
+    to: '/system/logs',
     icon: 'i-lucide-server-cog'
   },
 ]
