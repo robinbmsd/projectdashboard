@@ -1,29 +1,27 @@
 <script setup lang="ts">
 definePageMeta({
-    layout: false
+    layout: false,
+    ssr: false,
+    middleware: 'auth' 
 })
 
 const router = useRouter()
 const toast = useToast()
 
-// Ambil cookie yang dipakai untuk sesi login
 const authToken = useCookie('auth_token')
 const tempEmail = useCookie('temp_email')
 
 const handleLogout = () => {
-    // 1. Kosongkan semua data sesi
     authToken.value = null
     tempEmail.value = null
     
-    // 2. Beri notifikasi kecil (opsional)
     toast.add({
         title: 'Logout Success',
         description: 'See you again!',
         color: 'success'
     })
 
-    // 3. Arahkan kembali ke halaman login
-    router.push('/login')
+    router.push('/usrlogin/login')
 }
 </script>
 

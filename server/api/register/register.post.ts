@@ -1,4 +1,4 @@
-import pool from '~~/server/api/utils/connection'
+import { getPool } from '~~/server/utils/connection'
 import { setResponseStatus } from 'h3'
 import bcrypt from 'bcryptjs'
 
@@ -8,6 +8,7 @@ interface RegisterBody {
 }
 
 export default defineEventHandler(async (event) => {
+  const pool = await getPool();
   try {
     let body: RegisterBody = {}
     
@@ -29,7 +30,7 @@ export default defineEventHandler(async (event) => {
       return { success: false, message: 'Email dan password wajib diisi' }
     }
 
-    const [existingUsers]: any = await pool.execute(
+    const [existingUsers]: any = await pool.query(
       'SELECT email FROM useraccount WHERE email = ?',
       [email]
     )
@@ -45,7 +46,7 @@ export default defineEventHandler(async (event) => {
 
     const hashedPassword = await bcrypt.hash(password, 10)
     
-    await pool.execute(
+    await pool.query(
       'INSERT INTO useraccount (email, password, delete_flag) VALUES (?, ?, ?)',
       [email, hashedPassword, 0]
     )

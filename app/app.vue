@@ -1,9 +1,5 @@
 <template>
   <div>
-    <NuxtLayout>
-      <NuxtPage />
-    </NuxtLayout>
-
-    <UToaster />
+    <NuxtPage />
   </div>
 </template>

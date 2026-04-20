@@ -1,9 +1,11 @@
-@import "tailwindcss";
 @import "@nuxt/ui";
+
+* {
+  font-family: 'Public Sans', sans-serif;  /* ← add this */
+}
 
 @theme static {
   --font-sans: 'Public Sans', sans-serif;
-
   --color-brand-50:  #f0f8ff;
   --color-brand-100: #dff0ff;
   --color-brand-200: #b8e3ff;
@@ -15,4 +17,8 @@
   --color-brand-800: #045388;
   --color-brand-900: #094571;
   --color-brand-950: #062b4b;
+}
+
+a:visited {
+  color: inherit;
 }

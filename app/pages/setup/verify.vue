@@ -45,7 +45,7 @@ const verifyOTP = async () => {
     }
 
     if (error.value || (data.value && !data.value.success)) {
-        otpCode.value = [] // Perubahan: Reset menggunakan array kosong
+        otpCode.value = []
         const errorMsg = error.value?.data?.message || data.value?.message || 'Kode OTP salah atau expired'
         toast.add({
             title: 'Gagal',

@@ -1,46 +1,55 @@
 export default defineNuxtConfig({
+  ssr: false,
+
+  experimental: {
+    serverAppConfig: false,  
+  },
+
   srcDir: 'app/',
   serverDir: 'server/',
 
   modules: [
-    '@nuxtjs/tailwindcss',
-    '@nuxt/eslint',
-    '@nuxt/ui'
+    ['@nuxt/eslint', {
+      config: {
+        stylistic: {
+          commaDangle: 'never',
+          braceStyle: '1tbs'
+        }
+      }
+    }],
+    
+    ['@nuxt/ui', { fonts: false }],
+
+    ['@nuxt/icon', {
+      provider: 'iconify',
+      serverBundle: 'remote'
+    }]
   ],
-
-  ui: {
-    fonts: false
-  },
-
+  
   devtools: { enabled: true },
+
+
+  fonts: {
+    providers: {
+      fontshare: false
+    }
+  },
+  
   css: ['~/assets/css/main.css'],
 
   routeRules: {
-    '/': { prerender: true },
+    '/': { redirect: '/usrlogin/login' },
     '/home': { redirect: '/home/dashboard' },
     '/login': { redirect: '/usrlogin/login' },
     '/register': { redirect: '/usrregister/register' }
   },
 
   compatibilityDate: '2025-01-15',
-
-  eslint: {
-    config: {
-      stylistic: {
-        commaDangle: 'never',
-        braceStyle: '1tbs'
-      }
-    }
-  },
-
-  icon: {
-    provider: 'iconify',
-    serverBundle: 'remote'
-  },
   
   nitro: {
-    devProxy: {
-      host: 'localhost',
+    devProxy: {},
+    externals: {
+      external: ['mysql2']
     }
   },
   
@@ -49,7 +58,17 @@ export default defineNuxtConfig({
     DB_USER: process.env.DB_USER,
     DB_PASSWORD: process.env.DB_PASSWORD,
     DB_NAME: process.env.DB_NAME,
+    jwtSecret: process.env.JWT_SECRET,
     public: {}
+  },
+  
+  vite: {
+    optimizeDeps: {
+      exclude: ['mysql2'],
+      include: [
+        '@vue/devtools-core',
+        '@vue/devtools-kit',]
+    }
   },
 
   typescript: {
@@ -61,5 +80,4 @@ export default defineNuxtConfig({
       }
     }
   }
-  
 })
