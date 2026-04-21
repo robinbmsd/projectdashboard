@@ -27,7 +27,7 @@ const activeNavItems = computed(() => {
 )
 
 const logout = () => {
-  navigateTo('/userlogin/login', { replace: true })
+  navigateTo('/usrlogin/login', { replace: true })
 }
 </script>
 
